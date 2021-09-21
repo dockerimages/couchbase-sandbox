@@ -1,10 +1,12 @@
 name: Create and publish a Docker image
 
-on:
-  push:
-    branches: ['release',"!*"]
-    tags:
-      - "v*"
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'couchbase-server version'     
+        required: true
+        default: '6.5.0'
 
 env:
   REGISTRY: ghcr.io
@@ -38,6 +40,8 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
+          build-args: |
+            VERSION=${{ github.event.inputs.version }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
