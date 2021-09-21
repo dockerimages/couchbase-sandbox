@@ -1,4 +1,5 @@
-FROM couchbase/server:SANDBOX_VERSION
+ARG VERSION=6.5.0
+FROM couchbase/server:$VERSION
 
 COPY scripts/configure-node.sh /etc/service/config-couchbase/run
 RUN chown -R couchbase:couchbase /etc/service
