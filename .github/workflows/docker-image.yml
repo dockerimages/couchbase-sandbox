@@ -1,0 +1,19 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image with v6.5.0
+      run: docker build --build-arg SANDBOX_VERSION=6.5.0 . --file Dockerfile --tag dockerimages/couchbase-server-sandbox:6.5.0
+#$(date +%s)
